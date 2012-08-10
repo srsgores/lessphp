@@ -249,7 +249,6 @@ class lessc {
 	}
 
 	protected function compileProps($block, $out) {
-		// $this->mixImports($block);
 		foreach ($this->sortProps($block->props) as $prop) {
 			$this->compileProp($prop, $block, $out);
 		}
@@ -271,12 +270,14 @@ class lessc {
 				break;
 			case "import":
 				$imports[] = $prop;
+				$other[] = array("import_mixin");
+				break;
 			default:
 				$other[] = $prop;
 			}
 		}
 
-		return array_merge($vars, $other);
+		return array_merge($vars, $imports, $other);
 	}
 
 	protected function compileMediaQuery($queries) {
